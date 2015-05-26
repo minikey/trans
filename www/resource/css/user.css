@@ -1,0 +1,171 @@
+/*蓝色 #3f85f2*/
+/*红色 #dd4437*/
+/*黄色 #f4b400*/
+/*绿色 #0f9d58*/
+.info-detail{
+	margin: 15px 0 10px 0;
+}
+.info-detail-item{
+	display: inline-block;
+	width: 25%;
+	font-size: 16px;
+}
+.info-cards-wrap .card-panel{
+	display: inline-block;
+	margin-right: 10px;
+	padding: 10px 20px;
+	border-left: 3px solid #fff;
+}
+.info-cards-wrap .card-panel span{
+	font-size: 18px;
+	font-weight: bold;
+}
+.info-cards-wrap .money-card{
+	border-left-color: #3f85f2;
+}
+.info-cards-wrap .donate-article-card{
+	border-left-color: #dd4437;
+}
+.info-cards-wrap .get-article-card{
+	border-left-color: #f4b400;
+}
+.info-cards-wrap .done-article-card{
+	border-left-color: #0f9d58;
+}
+.col.first-col{
+	padding-left: 0;
+}
+.col.sec-col{
+	padding-right: 0;
+}
+/* 文章列表 */
+.article-table .table-col2{
+	width: 13%
+}
+.article-table .table-col3{
+	width: 15%
+}
+.article-table .article-title{
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+.status-link-td{
+	position: relative;
+}
+.status-link-td .pop-cont{
+	display: none;
+	z-index: 2;
+	position: absolute;
+	top: 6px;
+	left: 100%;
+	width: 106px;
+	border-radius: 2px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	background: #fff;
+	text-align: center;
+}
+.status-link-td .icon-tri{
+	left: -10px;
+	bottom: 50%;
+	border-right-color: #fff;
+}
+.status-link-td .icon-tri-outter{
+	position: absolute;
+	left: -13px;
+	bottom: 50%;
+	border:6px solid transparent;	
+	line-height: 0;
+	width: 0;
+	height: 0;
+	_display:none;
+	border-right-color: #eaeaea;
+}
+.status-link-td .collection{
+	margin: 0;
+	border: none;
+}
+.status-link-td a.collection-item{
+	border-bottom: none;
+	color: #333;
+}
+.status-link-td a.collection-item:not(.active):hover{
+	color: #f4b400;
+	background-color: #f2f2f5;
+}
+.status-link.undo-link{
+	color: #9e9e9e;
+}
+.status-link.active{
+	color: #f4b400;
+}
+.done-modal{
+	padding: 20px 20px 10px 20px;
+}
+
+/* 管理员 */
+.admin-article{
+	position: relative;
+	margin-top: 20px;
+	padding-top: 10px;
+}
+.manager-list li{
+	line-height: 30px;
+}
+.money-card-panel{
+	margin-top: 0;
+}
+.money-card-panel .row{
+	margin-bottom: 0;
+}
+.money-card-panel .col{
+	padding: 0 0.75rem 0 0.75rem;
+}
+.moneylist-card-panel{
+	position: relative;
+}
+.money-card-panel form.col,
+.moneylist-card-panel form.col{
+	padding: 0;
+}
+.moneylist-card-panel button{
+	margin-top: 8px;
+}
+.moneylist-card-panel .row{
+	margin-bottom: 40px;
+}
+.money-table .table-col3{
+	width: 25%;
+}
+.money-table .table-col4{
+	width: 13%;
+}
+.moneylist-user{
+	display: none;
+}
+
+/* 用户完善信息 */
+.user-complete-card{
+	margin-top: 4rem;
+}
+.complete-tip-wrap{
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+.complete-tip{
+	font-size: 16px;
+}
+.complete-form-wrap .input-field{
+	margin-top: 2rem;
+}
+
+.complete-form-wrap .input-field label.active{
+	font-size: 1.1rem;
+}
+.complete-form-wrap input[type=text],
+.complete-form-wrap input[type=email]{
+	height: 4rem;
+	font-size: 1.4rem;
+}
+.complete-form-wrap input[disabled]{
+	color: #9E9E9E;
+}

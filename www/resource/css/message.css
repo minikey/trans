@@ -1,0 +1,25 @@
+.message-table .table-col1{
+	width: 5%;
+}
+.message-table .table-col3{
+	width: 55%;
+}
+.message-table tr{
+	cursor: pointer;
+}
+.message-table tr:hover{
+	background-color: #f3f3f3;
+}
+.message-table .msg-unread{
+	font-weight: bold;
+}
+.message-table .msg-icon{
+	width: 25px;
+	height: 25px;
+	background-size: 25px 25px;
+	background-repeat: no-repeat;
+	background-image: url('http://p0.qhimg.com/d/inn/4ed94f3a/icon-msg/read.png');
+}
+.message-table .msg-unread .msg-icon{
+	background-image: url('http://p0.qhimg.com/d/inn/4ed94f3a/icon-msg/unread.png');
+}

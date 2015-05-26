@@ -1,0 +1,209 @@
+/* 重写materialize样式 */
+@media only screen and (min-width : 993px) {
+	.container {
+	width: 95%; }
+}
+.tabs li.tab a{
+	color: #c40000;
+}
+.tabs li.tab a:hover {
+	color: #ff2b2b;
+}
+.tabs .indicator{
+	background-color: #c40000;
+}
+.dropdown-content{
+	overflow-y: hidden !important;
+}
+.modal{
+	top: 20% !important;
+	background-color: #fff;
+}
+.btn,.btn:hover{
+	background-color: #4285f4;
+}
+button:focus{
+	background-color: #f4b400;
+}
+.input-field input[type=text]:focus + label,
+.input-field input[type=email]:focus + label,
+.input-field textarea:focus.materialize-textarea + label {
+	color: #f4b400;
+}
+input[type=text]:focus,
+input[type=email]:focus,
+textarea:focus.materialize-textarea {
+	border-bottom: 1px solid #f4b400;
+	-webkit-box-shadow: 0 1px 0 0 #f4b400;
+	-moz-box-shadow: 0 1px 0 0 #f4b400;
+	box-shadow: 0 1px 0 0 #f4b400;
+}
+.input-field .prefix.active {
+	color: #f4b400;
+}
+.dropdown-content li>a,
+.dropdown-content li>span{
+	color: #4285f4;
+}
+table{
+	table-layout: fixed;
+	font-size: 13px;
+}
+table.bordered tr:last-child{
+	border-bottom: none;
+}
+
+/* 通用 */
+body {
+	min-width: 1020px;
+	font:14px/1.6 "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+	color: #333;
+	background-color: #edecec;
+}
+footer.page-footer{
+	background-color: #4285f4;
+}
+footer.fixed-footer{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+.clearfix:after{
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+	content: '';
+}
+.clearfix{
+	zoom: 1;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.hd nav{
+	background-color: #4285f4;
+}
+.hd nav .brand-logo{
+	left: 50px;
+}
+.user-nav{
+	position: relative;
+}
+.red-point{
+	/*display: none;*/
+	position: absolute;
+	left: 49px;
+	top: 13px;
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	border-radius: 100%;
+	background-color: red;
+	color: #fff;
+	line-height: 18px;
+	text-align: center;
+	font-weight: bold;
+}
+/* 颜色 */
+/*蓝色 #3f85f2*/
+/*红色 #dd4437*/
+/*黄色 #f4b400*/
+/*绿色 #0f9d58*/
+.blue-mine{
+	color: #3f85f2;
+}
+.red-mine{
+	color: #dd4437;
+}
+.yellow-mine{
+	color: #f4b400;
+}
+.green-mine{
+	color: #0f9d58;
+}
+/* 小三角 */
+.icon-tri{
+	position: absolute;
+	border:5px solid transparent;	
+	line-height: 0;
+	width: 0;
+	height: 0;
+	_display:none;
+}
+/* 确认弹出框 */
+.confirm-modal{
+	width: 30%;
+	padding: 30px;
+}
+/* 局部小对话框 */
+.panel-wrap{
+	position: relative;
+}
+.panel-card{
+	display: none;
+	position: absolute;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	box-shadow: 0 4px 20px 1px rgba(0,0,0,0.2);
+	background: #fff;
+	z-index: 9;
+	text-align: center;
+}
+.panel-btns{
+	margin-top: 10px;
+}
+.panel-btns .btn{
+	margin:0 5px 0 5px;
+	padding: 0 1.2em;
+	height: 26px;
+	line-height: 26px;
+}
+.ok-btn,
+.ok-btn:hover{
+	background-color: #f4b400;
+}
+.cancle-btn,
+.cancle-btn:hover{
+	background-color: #fff;
+	color: #333;
+}
+
+label.valid-error{
+	color: #dd4437;
+}
+
+.showLater{
+	display: none;
+}
+
+.btn-github-login {
+	position: relative;
+	float: left;
+	padding-left: 48px;
+}
+.btn-github-login img {
+	position: absolute;
+	top: 20px;
+	left: 18px;
+	width: 22px;
+	height: 22px;
+}
+
+/* 查看更多 */
+.task-more{
+	display: none;
+	position: absolute;
+	right: 0;
+	bottom: -40px;
+	padding: 5px 10px;
+}
+
+.user-icon {
+	height: 38px;
+	border-radius: 50%;
+  	vertical-align: middle;
+}

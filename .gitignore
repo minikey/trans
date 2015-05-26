@@ -1,0 +1,6 @@
+._.DS_Store
+.DS_Store
+rigger/tmp/*
+*/._*
+App/Runtime/Data/app.pid
+nohup.out
