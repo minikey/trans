@@ -1,0 +1,220 @@
+<% include ../Common/header.html %>
+<link rel="stylesheet" type="text/css" href="/resource/css/user.css">
+<div class="doc section">
+	<div class="container">
+		<!--s:基本资料-->
+		<div class="row">
+			<h5>基本资料</h5>
+			<div class="js-info-wrap"></div>
+		</div>
+		
+		<!--e:基本资料--> 
+		<!--s: 文章统计列表-->
+		<div class="row">
+			<div class="col s6 first-col">
+				<div class="card-panel">
+					<h5 class="grey-text">我的领取</h5>
+					<table class="article-table bordered js-get-article">
+						<colgroup>
+							<col class="table-col1">
+							<col class="table-col2">
+							<col class="table-col3">
+						</colgroup>
+						<thead>
+							<tr>
+								<th data-field="article-info">文章信息</th>
+								<th data-field="article-money">奖赏</th>
+								<th data-field="article-status">状态</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col s6 sec-col">
+				<div class="card-panel">
+					<h5 class="grey-text">我的投稿</h5>
+					<table class="article-table bordered js-get-created-article">
+						<colgroup>
+							<col class="table-col1">
+							<col class="table-col2">
+							<col class="table-col3">
+						</colgroup>
+						<thead>
+							<tr>
+								<th data-field="article-info">文章信息</th>
+								<th data-field="article-money">奖赏</th>
+								<th data-field="article-status">状态</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!--e: 文章统计列表-->
+	</div>
+</div>
+<script id="getUserInfo" type="text/html">
+	<div class="info-detail">
+		<p class="info-detail-item">姓名：<span>{{name}}</span></p>
+		{{if email}}
+		<p class="info-detail-item">邮箱：<span>{{email}}</span></p>
+		{{/if}}
+		<p class="info-detail-item">类别：<span>{{type}}</span></p>
+	</div>
+	<div class="info-cards-wrap">
+		<div class="card-panel money-card">
+			<span>{{riches}}</span>
+			<p>我的积分(<a href="/exchange" target="_blank">兑换</a>)</p>
+		</div>
+		<div class="card-panel get-article-card">
+			<span>{{a}}</span>
+			<p>我的领取</p>
+		</div>
+		<div class="card-panel donate-article-card">
+			<span>{{c}}</span>
+			<p>我的投稿</p>
+		</div>
+		<div class="card-panel done-article-card">
+			<span>{{f}}</span>
+			<p>待评分</p>
+		</div>
+	</div>
+</script>
+
+<script id="getArticleTable" type="text/html">
+{{if newDataList.length == 0}}
+<tr><td>我还没有领取翻译文章</td></tr>
+{{else}}
+	{{each newDataList as list index}}
+		{{each list as value i}}
+		<tr class="js-tr js-article {{if (index + 1) > showListNum}}showLater{{/if}}" data-num="{{index+1}}">
+			<td class="js-article-info">
+				<p class="article-title truncate">
+					<a href="{{value.ourl}}" class="js-ourl" target="_blank" title="{{value.ourl}}">{{value.title}}</a>
+				</p>
+				<p class="truncate">
+					<span>投稿者：{{value.username}}</span>
+					{{if value.state != 6}}
+					<span>投稿日期：{{value.ctime}}</span>
+					{{else}}
+						<a href="{{value.turl}}" target="_blank" title="{{value.turl}}">译文地址</a>			
+					{{/if}}
+				</p>
+			</td>
+		
+			<td>{{value.cuser}}</td>
+		
+			{{if value.state == 6}}
+				<td class="green-text">{{value.statename}}</td>
+			{{else if value.state == 5}}
+				<td class="blue-text">{{value.statename}}</td>
+			{{else}}
+				<td class="status-link-td">
+					<a class="status-link {{if value.state == 3}} undo-link {{else if value.state == 4}} red-mine {{/if}}" href="#!">{{value.statename}}</a>
+					<div class="pop-cont">
+						<i class="icon-tri-outter"></i>
+						<i class="icon-tri"></i>
+						{{if value.state == 3}}
+						<div class="collection">
+							<a href="##" class="collection-item js-start-task">开始翻译</a>
+							<a href="#confirm-giveup{{i}}" class="collection-item modal-trigger" data-index='{{i}}'>不翻译了</a>
+						</div>
+						{{else if value.state == 4}}
+						<div class="collection">
+							<a href="#confirm-doing-submit{{i}}" class="collection-item modal-trigger">提交译文</a>
+							<a href="#confirm-giveup{{i}}" class="collection-item modal-trigger">不翻译了</a>
+						</div>
+						{{/if}}
+					</div>
+		
+					<input type="text" class="js-article-id" value="{{value.id}}" hidden>
+					<input type="text" class="js-article-status" value="{{value.state}}" hidden>
+		
+					<div id="confirm-giveup{{i}}" class="modal confirm-modal center-align">
+						<p>确认要放弃翻译这篇文章吗?</p>
+						<p class="panel-btns">
+							<a class="waves-effect waves-light btn modal-close ok-btn js-confirm-giveup">确认</a>
+							<a class="waves-effect waves-light btn modal-close cancle-btn">取消</a>
+						</p>
+					</div>
+					
+					{{if value.state == 4}}
+					<div id="confirm-doing-submit{{i}}" class="modal done-modal center-align">
+						<form class="col s12" id="submitArticleForm">
+							<div class="input-field col s12">
+								<input id="doneAddr" type="text" name="doneAddr" class="required">
+								<label for="doneAddr">译文地址</label>
+							</div>
+							<div class="col s12 red-mine left-align js-error-tip">
+									<!-- 错误：译文地址 -->
+							</div>
+							<div class="input-field col s12 right-align">
+								<button class="btn waves-effect waves-light ok-btn js-submit-task">提交
+									<i class="mdi-content-send right"></i>
+								</button>
+								<button class="btn waves-effect waves-light modal-close cancle-btn">取消</button>
+							</div>
+						</form>
+					</div>
+					{{/if}}
+				</td>
+			{{/if}}
+		</tr>
+		{{/each}}
+	{{/each}}
+	{{if showListNum < newDataList.length}}
+		<tr><td></td><td></td><td><a href="#" class="js-more">more&gt;&gt;</a></td></tr>
+	{{/if}}
+{{/if}}
+	
+</script>
+<script id="getCreatedArticleTable" type="text/html">
+{{if newDataList.length == 0}}
+	<tr><td>我还没有进行投稿</td></tr>
+{{else}}
+	{{each newDataList as list index}}
+		{{each list as value i}}
+		<tr class="js-tr {{if (index + 1) > showListNum}}showLater{{/if}}" data-num="{{index+1}}">
+			<td>
+				<p class="article-title truncate"><a href="{{value.ourl}}" title="{{value.ourl}}">{{value.title}}</a></p>
+				<p class="truncate">
+					<span>翻译者：
+					{{if value.username == null}}
+						待定
+					{{else}}
+						{{value.username}}
+					{{/if}}
+					</span>
+					<span>投稿日期：{{value.ctime}}</span>
+				</p>
+			</td>
+			<td>{{value.merit}}</td>
+
+			{{if value.state == 3}}
+				{{_state = 'grey-text'}}
+			{{else if value.state == 4}}
+				{{_state = 'red-mine'}}
+			{{else if value.state == 5}}
+				{{_state = 'blue-text'}}
+			{{else if value.state == 6}}
+				{{_state = 'green-text'}}
+			{{else}}
+				{{_state = ''}}
+			{{/if}}
+			<td class="{{_state}}">{{value.statename}}</td>
+		</tr>
+		{{/each}}
+	{{/each}}
+	{{if showListNum < newDataList.length}}
+		<tr><td></td><td></td><td><a href="#" class="js-more">more&gt;&gt;</a></td></tr>
+	{{/if}}
+{{/if}}
+	
+</script>
+<% include ../Common/common_js.html %>
+<script src="/resource/js/lib/template.js"></script>
+<script src="/resource/js/page/user_index.js"></script>
+<!-- footer -->
+<% include ../Common/footer.html %>

@@ -1,0 +1,235 @@
+<% include ../Common/header.html %>
+<link rel="stylesheet" type="text/css" href="/resource/css/user.css">
+<div class="doc section">
+	<div class="container">
+		<div class="row card-panel">
+			<div class="col s8">
+				<h5 class="grey-text">管理须知</h5>
+				<ul class="manager-list">
+					<li>文章审核：若用户提交的原文价值不大，或原文价值与奖赏不成比例时，可驳回该文章。</li>
+					<li>文章评分：若用户提交的译文质量不高时，可暂时淘汰该文章让用户重新修改再审核。</li>
+					<li>积分管理：输入负数为减积分，正数为加积分。</li>
+					<li>积分查询：默认显示最新几条用户获得积分的情况。</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<!--s:积分管理和文章管理-->
+			<div class="col s7 first-col">
+				<ul class="tabs">
+					<li class="tab col s3"><a href="#tabs-check-list" class="active">文章审核</a></li>
+					<li class="tab col s3"><a href="#tabs-rate-list">文章评分</a></li>
+				</ul>
+				<div id="tabs-check-list" class="admin-article card-panel js-unChecked-task">
+					<a href="#" class="task-more js-more" data-index="0">more&gt;&gt;</a>
+					<table class="article-table bordered">
+						<colgroup>
+							<col class="table-col1">
+							<col class="table-col2">
+							<col class="table-col3">
+						</colgroup>
+						<thead>
+							<tr>
+								<th data-field="article-info">文章信息</th>
+								<th data-field="article-money">奖赏</th>
+								<th data-field="article-status">状态</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<div id="tabs-rate-list" class="admin-article card-panel js-unEvaluated-task">
+					<a href="#" class="task-more js-more" data-index="1">more&gt;&gt;</a>
+					<table class="article-table bordered">
+						<colgroup>
+							<col class="table-col1">
+							<col class="table-col2">
+							<col class="table-col3">
+						</colgroup>
+						<thead>
+							<tr>
+								<th data-field="article-info">文章信息</th>
+								<th data-field="article-money">奖赏</th>
+								<th data-field="article-status">状态</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--e:积分管理和文章管理-->
+			<!--s:积分清单-->
+			<div class="col s5 sec-col">
+				<div class="card-panel money-card-panel">
+					<h5 class="grey-text">积分管理</h5>
+					<div class="row">
+						<form class="col s12" id="moneyForm">
+							<div class="input-field col s6">
+								<i class="mdi-action-account-circle prefix"></i>
+								<input id="editUsername" type="text" name="editUsername">
+								<label for="editUsername">用户名</label>
+							</div>
+							<div class="input-field col s6">
+								<i class="mdi-action-credit-card prefix"></i>
+								<input id="editMoney" type="text" name="editMoney">
+								<label for="editMoney">积分</label>
+							</div>
+							<div class="col s12 red-mine js-error-tip">
+								<!-- 错误：输入的用户名不存在 -->
+							</div>
+							<div class="input-field col s12 right-align">
+								<button class="btn waves-effect waves-light ok-btn js-money-submit">提交
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="card-panel moneylist-card-panel">
+					<h5 class="grey-text">用户积分查询</h5>
+					<div class="row">
+						<form class="col s12" id="moneyListForm">
+							<div class="input-field col s6">
+								<input id="searchUsername" type="text" name="searchUsername">
+								<label for="searchUsername">用户名</label>
+							</div>
+							<div class="input-field col s6 right-align">
+								<button class="btn waves-effect waves-light ok-btn js-moneylist-submit">查询
+								</button>
+							</div>
+							<div class="col s12 red-mine js-error-tip">
+								<!-- 错误：输入的用户名不存在 -->
+							</div>
+						</form>
+					</div>
+					<div class="moneylist-wrap">
+						<div class="js-moneylist-new">
+							<h6 class="grey-text">最新获得积分清单</h6>
+							<table class="money-table bordered">
+								<colgroup>
+									<col class="table-col1">
+									<col class="table-col2">
+									<col class="table-col3">
+									<col class="table-col4">
+								</colgroup>
+								<thead>
+									<tr>
+										<th data-field="">用户名</th>
+										<th data-field="">获得积分时间</th>
+										<th data-field="">积分类型</th>
+										<th data-field="">积分</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>	
+						</div>
+						<div class="js-moneylist-user">
+							<h6 class="grey-text">用户积分清单</h6>
+							<table class="money-table bordered">
+								<colgroup>
+									<col class="table-col1">
+									<col class="table-col2">
+									<col class="table-col3">
+								</colgroup>
+								<thead>
+									<tr>
+										<th data-field="">获得积分时间</th>
+										<th data-field="">积分类型</th>
+										<th data-field="">积分</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+							<a href="#" class="task-more js-more" data-index="2">more&gt;&gt;</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script id="getTasks" type="text/html">
+{{if isUnchecked == 1}}
+	{{#colTxt = ['通过','驳回']}}
+	{{#colName = 'check'}}
+{{else}}
+	{{#colTxt = ['合格','淘汰']}}
+	{{#colName = 'rate'}}
+{{/if}}
+
+{{if data.count == 0}}
+<tr><td>该类型的文章列表暂时为空</td></tr>
+{{else}}
+{{/if}}
+{{each data.data as value index}}
+{{if value.ausername != null}}
+	{{_url = value.turl}}
+{{else}}
+	{{_url = value.ourl}}
+{{/if}}
+<tr class="js-article">
+	<td>
+		<p class="article-title truncate">
+			<a href="{{_url}}" target="_blank" title="{{_url}}">{{value.title}}</a>
+		</p>
+		<p class="article-info truncate">
+			投稿者：<span class="js-cusername">{{value.cusername}}</span>
+			<span>投稿日期：{{value.ctime}}</span>
+			{{if value.ausername != null}}
+			翻译者：<span class="js-ausername">{{value.ausername}}</span>
+			{{/if}}
+		</p>
+	</td>
+	<td class="js-merit">{{value.merit}}</td>
+	<td class="status-link-td">
+		<a class="status-link red-mine" href="#!">{{value.statename}}</a>
+		<div class="pop-cont">
+			<i class="icon-tri-outter"></i>
+			<i class="icon-tri"></i>
+			<div class="collection">
+				<a href="#!" class="collection-item js-ok">{{colTxt[0]}}</a>
+				<a href="#confirm-{{colName}}-giveup{{value.id}}" class="collection-item modal-trigger">{{colTxt[1]}}</a>
+			</div>
+		</div>
+		<input type="text" class="js-article-id" value="{{value.id}}" hidden>
+		<input type="text" class="js-article-status" value="{{value.state}}" hidden>
+	
+		<div id="confirm-{{colName}}-giveup{{value.id}}" class="modal confirm-modal center-align">
+			<p>确认要{{colTxt[1]}}这篇文章吗?</p>
+			<p class="panel-btns">
+				<a class="waves-effect waves-light btn modal-close ok-btn js-ok js-giveup">确认</a>
+				<a class="waves-effect waves-light btn modal-close cancle-btn">取消</a>
+			</p>
+		</div>
+	</td>
+</tr>
+{{/each}}
+</script>
+
+<script id="moneylist" type="text/html">
+{{if count == 0}}
+<tr><td>暂无积分记录</td></tr>
+{{else}}
+{{each data as value index}}
+<tr>
+	{{if value.name != null}}
+	<td>
+		<p class="truncate"><a href="#" title="{{value.name}}">{{value.name}}</a></p>
+	</td>
+	{{/if}}
+	<td>{{value.ctime}}</td>
+	<td>{{value.codename}}</td>
+	<td>{{value.merit}}</td>
+</tr>
+{{/each}}
+{{/if}}
+</script>
+
+<% include ../Common/common_js.html %>
+<script src="/resource/js/lib/template.js"></script>
+<script src="/resource/js/page/admin_index.js"></script>
+<!-- footer -->
+<% include ../Common/footer.html %>
+<!-- footer -->

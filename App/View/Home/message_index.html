@@ -1,0 +1,54 @@
+<% include ../Common/header.html %>
+<link rel="stylesheet" type="text/css" href="/resource/css/message.css">
+<div class="doc section">
+	<div class="container">
+		<div class="row card-panel">
+			<h5 class="grey-text">我的消息</h5>
+			<table class="message-table bordered js-get-article">
+				<colgroup>
+					<col class="table-col1">
+					<col class="table-col2">
+					<col class="table-col3">
+					<col class="table-col4">
+					<col class="table-col5">
+				</colgroup>
+				<thead>
+					<tr>
+						<th></th>
+						<th data-field="message-sender">发件人</th>
+						<th data-field="message-cont">消息</th>
+						<th data-field="message-time">时间</th>
+						<th data-field="message-operate">操作</th>
+					</tr>
+				</thead>
+				<tbody id="msg-body">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script id="msg-table" type="text/html">
+{{if data.length == 0}}
+	<tr>
+		<td colspan="5">暂无消息~</td>
+	</tr>
+{{else}}
+	{{each data as value i}}
+	<tr data-id="{{value.id}}" class="{{if value.state === 0}}msg-unread js-msg-unread{{/if}}">
+		<th><p class="msg-icon"></p></th>
+		<td>{{value.name}}</td>
+		<td>{{=value.message}}</td>
+		<td>{{value.ctime}}</td>
+		<td><a href="###" class="remove" data-id="{{value.id}}">删除</a></td>
+	</tr>
+	{{/each}}
+{{/if}}
+</script>
+
+<% include ../Common/common_js.html %>
+<script src="/resource/js/lib/template.js"></script>
+<script src="/resource/js/page/message_index.js"></script>
+<!-- footer -->
+<% include ../Common/footer.html %>

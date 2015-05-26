@@ -1,0 +1,233 @@
+<% include ../Common/header.html %>
+<link rel="stylesheet" type="text/css" href="/resource/css/index.css">
+<div class="doc section">
+	<div class="container">
+		<div class="row">
+			<div class="main col s8">
+				<ul class="tabs">
+					<li class="tab col s3"><a href="#tabs-undo-list" class="active">待翻译</a></li>
+					<li class="tab col s3"><a href="#tabs-done-list">已完成</a></li>
+					<li class="tab col s3"><a href="#tabs-doing-list">正在进行中</a></li>
+				</ul>
+			
+				<div id="tabs-undo-list" class="homepage-list js-undo-list-wrap">
+					
+					<!-- 用户不登录不能进行投稿-->
+					<%if (userInfo) {%>
+					<div class="row">
+						<!--s:表单：提交新文章-->
+						<div id="new-article" class="modal new-article-modal">
+							<div class="row">
+								<form class="col s12" id="newArticleForm">
+									<div class="input-field col s12">
+										<input id="title" type="text" name="title">
+										<label for="title">原文标题</label>
+									</div>
+									<div class="input-field col s12">
+										<input id="addr" type="text" name="addr">
+										<label for="addr">原文地址</label>
+									</div>
+									<div class="input-field col s12">
+										<textarea id="des" class="materialize-textarea" name="des"></textarea>
+										<label for="des">原文简介</label>
+									</div>
+
+									<div class="col s12 red-mine left-align js-error-tip">
+											<!-- 错误提示 -->
+									</div>
+									<div class="input-field col s12 right-align">
+										<button class="btn waves-effect waves-light ok-btn js-submit-article">提交
+											<i class="mdi-content-send right"></i>
+										</button>
+										<button class="btn waves-effect waves-light modal-close cancle-btn">取消</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!--e:表单：提交新文章-->
+						<a href="#new-article" class="waves-effect waves-light btn modal-trigger new-article-btn js-new-article">
+							<i class="mdi-content-add"></i>
+							我要投稿
+						</a>
+					</div>
+					<%}%>
+
+					<div class="js-undo-list"></div>
+					<a href="#" class="task-more js-more" data-index="0">more&gt;&gt;</a>
+				</div>
+				<div id="tabs-done-list" class="homepage-list js-done-list-wrap">					
+					<a href="#" class="task-more js-more" data-index="1">more&gt;&gt;</a>
+				</div>
+				<div id="tabs-doing-list" class="homepage-list js-doing-list-wrap">
+					<a href="#" class="task-more js-more" data-index="2">more&gt;&gt;</a>
+				</div>
+			</div>
+			
+			<!--s: 侧栏-->
+			<div class="aside col s4">
+				<div class="card-panel js-top-task-user">
+					<h5 class="card-title grey-text">翻译文章最多的用户</h5>
+				</div>
+				<div class="card-panel js-top-rich-user">
+					<h5 class="card-title grey-text">赞助积分最多的用户</h5>
+				</div>
+			</div>
+			<!--e: 侧栏-->
+		</div>
+	</div>
+</div>
+
+<script id="rewardMoneyList" type="text/html">
+<!--option之间不能有空格或换行，否则material_select()中会报错-->
+{{each data as value index}}
+	<option value="{{value.merit}}" data-index="{{value.acctypeid}}" data-num="{{value.accid}}">{{value.merit}}积分</option>
+{{/each}}
+</script>
+
+<script id="getWaitTask" type="text/html">
+{{if count == 0}}
+暂时没有待翻译的文章
+{{else}}
+{{each data as value index}}
+<div class="row article-list js-article">
+	<div class="article-info clearfix">
+		<div class="col s9">
+			<h3 class="article-title"><a href="{{value.ourl}}" target="_blank" title="{{value.ourl}}">{{value.title}}</a></h3>
+			{{if value.des}}
+			<p class="article-des">{{value.des}}</p>
+			{{/if}}
+		</div>
+		<div class="col s3 center-align">
+			<div class="panel-wrap">
+				<a class="waves-effect waves-light btn js-panel-btn">领一个</a>
+				<!--s:确认领取文章-->
+				<div class="panel-card confirm-panel js-pop-cont">
+					<i class="icon-tri"></i>
+					<p>确认要领走这篇文章吗？</p>
+					<p class="panel-btns">
+						<a class="waves-effect waves-light btn ok-btn js-confirm-article-btn">确认</a>
+						<a class="waves-effect waves-light btn cancle-btn js-confirm-article-btn">取消</a>
+					</p>
+				</div>
+				<!--e:确认领取文章-->
+			</div>
+			<div class="panel-wrap">
+				<a class="waves-effect waves-light btn js-panel-btn js-get-moneylist">打小赏</a>
+				<div class="js-money-panel"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row article-detail">
+		<div class="col s4 article-provider">投稿者：{{value.cusername}}</div>
+		<div class="col s4 article-deadline">投稿日期：{{value.ctime}}</div>
+		<div class="col s4 right-align">
+			<a href='#' class="donate-money-wrap js-donate-money">
+				已获赞助<span class="article-money">{{value.merit}}</span>积分			
+			</a>
+		</div>
+	</div>
+	<input type="text" class="js-article-id" value="{{value.id}}" hidden>
+	<input type="text" class="js-article-status" value="{{value.state}}" hidden>
+</div>
+{{/each}}
+{{/if}}
+</script>
+
+
+<script id="moenyPanel" type="text/html">
+<!--s: 打赏金额list-->
+<div class="panel-card money-panel js-pop-cont">
+	<i class="icon-tri"></i>
+	<ul class="collection">
+		{{each data as value index}}
+		<a href="#confirm-money" class="collection-item modal-trigger js-coll-item" data-num="{{value.accid}}" data-index="{{value.acctypeid}}">
+			<span class="js-money-value">{{value.merit}}</span>积分
+		</a>
+		{{/each}}
+	</ul>
+</div>
+<!--e: 打赏金额list-->
+<!--s: 确认打赏-->
+<div id="confirm-money" class="modal confirm-modal center-align">
+	<p>确认要赞助<span class="confirm-money-num"></span>积分吗?</p>
+	<p class="panel-btns">
+		<a class="waves-effect waves-light btn modal-close ok-btn">确认</a>
+		<a class="waves-effect waves-light btn modal-close cancle-btn">取消</a>
+	</p>
+</div>
+<!--e: 确认打赏-->
+</script>
+
+
+<script id="collection" type="text/html">
+<ul class="collection donate-money-list">
+	{{each data as value index}}
+	<li class="collection-item clearfix">
+		<span class="donate-money-name truncate">{{value.name}}</span>
+		<span class="badge">{{value.merit}}积分</span>
+	</li>
+	{{/each}}
+</ul>
+</script>
+
+<script id="getOtherTask" type="text/html">
+{{if count == 0}}
+该文章列表暂时为空
+{{else}}
+{{each data as value index}}
+<div class="row white">
+	<div class="article-info clearfix">
+		<div class="col s9">
+			<h3 class="article-title"><a href="{{value.ourl}}" target="_blank" title="{{value.ourl}}">{{value.title}}</a></h3>
+			<p class="article-des">{{value.des}}</p>
+		</div>
+	</div>
+	<div class="row article-detail">
+		<div class="col s4 article-provider">投稿者：{{value.cusername}}</div>
+		<div class="col s4">翻译者：{{value.ausername}}</div>
+		{{if value.turl}}
+		<div class="col s4 right-align">
+			<a href='{{value.turl}}' target="_blank">译文链接</a>
+		</div>
+		{{/if}}
+	</div>
+</div>
+{{/each}}
+{{/if}}
+</script>
+
+<script id="topTaskUser" type="text/html">
+{{if userList.length == 0}}
+	暂时没有用户完成翻译任务
+{{else}}
+<ul class="collection">
+	{{each userList as value i}}
+	<li class="collection-item">
+		{{value.name}}
+		<span class="badge">{{value.count}}篇</span>
+	</li>
+	{{/each}}
+</ul>
+{{/if}}
+</script>
+
+<script id="topRichUser" type="text/html">
+{{if userList.length == 0}}
+	暂时没有用户赞助积分
+{{else}}
+<ul class="collection">
+	{{each userList as value i}}
+	<li class="collection-item">
+		{{value.name}}
+		<span class="badge">{{value.summeirt}}积分</span>
+	</li>
+	{{/each}}
+</ul>
+{{/if}}
+</script>
+
+<% include ../Common/common_js.html %>
+<script src="/resource/js/lib/template.js"></script>
+<script src="/resource/js/page/index_index.js"></script>
+<!-- footer -->
+<% include ../Common/footer.html %>

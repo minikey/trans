@@ -1,0 +1,41 @@
+<% include ../Common/header.html %>
+<link rel="stylesheet" type="text/css" href="/resource/css/user.css">
+
+<div class="doc section">
+	<div class="container">
+		<div class="card-panel user-complete-card">
+			<div class="row complete-tip-wrap">
+			<div class="col s6 offset-s3 complete-tip">
+				Hi, <span class="yellow-mine">Alvin</span>童鞋！为了更好地体验，快来补全一下你的资料吧~
+			</div>
+		</div>
+		<div class="row complete-form-wrap">
+			<form class="col s6 offset-s3" id="completeForm">
+				<div class="input-field col s12">
+					<input type="text" id="username" value="Alvin" disabled>
+					<label class="active" for="username">用户名</label>
+				</div>
+				<div class="input-field col s12">
+					<input type="email" id="useremail" name="useremail">
+					<label for="useremail">邮箱</label>
+				</div>
+				<div class="col s12 red-mine left-align js-error-tip">
+						<!-- 错误提示 -->
+				</div>
+				<div class="input-field col s12 center-align">
+					<button class="btn-large waves-effect waves-light ok-btn js-complete-info">完成
+						<i class="mdi-content-send right"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+		</div>
+		
+	</div>
+</div>
+
+<% include ../Common/common_js.html %>
+<script src="/resource/js/page/user_complete.js"></script>
+
+<!-- footer -->
+<% include ../Common/footer.html %>

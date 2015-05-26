@@ -4,3 +4,6 @@ rigger/tmp/*
 */._*
 App/Runtime/Data/app.pid
 nohup.out
+Conf
+/App/Lib/Controller/Home/LoginController.js
+/App/Lib/service/LoginService.js

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie6" lang="zh-cn"><![endif]-->
+<!--[if IE 7 ]><html class="ie7" lang="zh-cn"><![endif]-->
+<!--[if IE 8 ]><html class="ie8" lang="zh-cn"><![endif]-->
+<!--[if IE 9 ]><html class="ie9" lang="zh-cn"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="zh-cn"><!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<title>众筹翻译 - 首页</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="keywords" content="360, 奇舞团, 翻译, 众筹"/>
+	<meta name="description" content="75众筹翻译网"/>
+	<link rel="icon" type="image/vnd.microsoft.icon" href="http://www.360.cn/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/resource/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/resource/css/materialize.css">
+	<link rel="stylesheet" type="text/css" href="/resource/css/common.css">
+</head>
+<body>
+	<!-- header -->
+	<div class="hd">
+		<!-- Dropdown Structure -->
+		<ul id="dropdown-user" class="dropdown-content">
+			<li><a href="/user">个人中心</a></li>
+			<li class="divider"></li>
+			<li><a href="/login/logoff">退出系统</a></li>
+		</ul>
+		<nav>
+			<div class="nav-wrapper">
+				<a href="/" class="brand-logo">众筹翻译</a>
+
+				<ul class="right">
+					<li><a href="/">首页</a></li>
+					<%if(!userInfo){%>
+					<li>
+						<!-- http://localhost:7500/github -->
+						<a class="btn-github-login" href="/github">
+	                      <img src="http://p0.qhimg.com/t01992bdfb2801b6034.png"><span>Login for GitHub</span>
+	                    </a>
+                    </li>
+					<%} else {%>
+					<%if(userInfo.type === 0){%>
+					<li><a href="/admin">管理中心</a></li>
+					<%}%>
+					
+					<!-- Dropdown Trigger -->
+					<li class="user-nav">
+						<a href="/message" style="display:none" target="_blank" class="red-point"></a>
+						<a href="#!" class="dropdown-button" data-activates="dropdown-user">
+						<img src="<%=userInfo.photo || 'http://p2.qhimg.com/t01726c6903f9e2760c.jpg'%>" alt="<%=userInfo.user%>" title="<%=userInfo.user%>" class="user-icon"/>
+						<i class="mdi-navigation-arrow-drop-down right"></i>
+						</a>
+					</li>
+					<%}%>
+				</ul>
+			</div>
+		</nav>
+	</div>
